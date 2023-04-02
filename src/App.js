@@ -34,32 +34,6 @@ function App() {
       </div>
      </Router>
       
-    
-    // <Router>
-    //   <nav className="navbar navbar-expand navbar-dark bg-dark">
-    //     <div className="navbar-nav mr-auto">
-    //       <li className="nav-item">
-    //         <Link to={"/notes"} className="nav-link">
-    //           Notes
-    //         </Link>
-    //       </li>
-    //       <li className="nav-item">
-    //         <Link to={"/add"} className="nav-link">
-    //           Add
-    //         </Link>
-    //       </li>
-    //     </div>
-    //   </nav>
-
-    //   <div className="container mt-3">
-    //     <Routes>
-    //       <Route path="/" element={<NotesList/>} />
-    //       <Route path="/notes" element={<NotesList/>} />
-    //       <Route path="/add" element={<AddNote/>} />
-    //       <Route path="/notes/:id" element={<Note/>} />
-    //     </Routes>
-    //   </div>
-    // </Router>
   );
 }
 
