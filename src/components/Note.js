@@ -11,8 +11,7 @@ const Note = (props) => {
   const initialNoteState = {
     id: null,
     title: "",
-    description: "",
-    published: false
+    description: ""
   };
   const [currentNote, setCurrentNote] = useState(initialNoteState);
   const [message, setMessage] = useState("");
@@ -37,26 +36,6 @@ const Note = (props) => {
   const handleInputChange = event => {
     const { name, value } = event.target;
     setCurrentNote({ ...currentNote, [name]: value });
-  };
-
-  const updateStatus = status => {
-    const data = {
-      id: currentNote.id,
-      title: currentNote.title,
-      description: currentNote.description,
-      published: status
-    };
-
-    dispatch(updateNote({ id: currentNote.id, data }))
-      .unwrap()
-      .then(response => {
-        console.log(response);
-        setCurrentNote({ ...currentNote, published: status });
-        setMessage("The status was updated successfully!");
-      })
-      .catch(e => {
-        console.log(e);
-      });
   };
 
   const updateContent = () => {
@@ -110,30 +89,7 @@ const Note = (props) => {
                 onChange={handleInputChange}
               />
             </div>
-
-            <div className="form-group">
-              <label>
-                <strong>Status:</strong>
-              </label>
-              {currentNote.published ? "Published" : "Pending"}
-            </div>
           </form>
-
-          {currentNote.published ? (
-            <button
-              className="badge badge-primary mr-2"
-              onClick={() => updateStatus(false)}
-            >
-              UnPublish
-            </button>
-          ) : (
-            <button
-              className="badge badge-primary mr-2"
-              onClick={() => updateStatus(true)}
-            >
-              Publish
-            </button>
-          )}
 
           <button className="badge badge-danger mr-2" onClick={removeNote}>
             Delete

@@ -1,5 +1,7 @@
 import http from "../http-common";
 
+/* List of endpoint Notes Service */
+
 const getAll = () => {
   return http.get("/notes");
 };

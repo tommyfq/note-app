@@ -1,24 +1,47 @@
+/**
+
+A component that allows users to add new notes.
+It utilizes React hooks like useState to manage the state of the note object
+and useDispatch to dispatch a Redux action to create the note.
+@component
+@example
+return (
+<AddNote />
+)
+*/
+
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createNote } from "../slices/notes";
 
 const AddNote = () => {
+  // Initial state of the note object
   const initialNoteState = {
     id: null,
     title: "",
-    description: "",
-    published: false
+    description: ""
   };
+
+  // Use state hooks to manage the state of the note object and the form submission status
   const [note, setNote] = useState(initialNoteState);
   const [submitted, setSubmitted] = useState(false);
 
+  // Get the dispatch function from the Redux store
   const dispatch = useDispatch();
 
+  /**
+  A function to handle changes in the input fields and update the note object accordingly.
+  @param {object} event - The input event object.
+  */
   const handleInputChange = event => {
     const { name, value } = event.target;
     setNote({ ...note, [name]: value });
   };
 
+  /**
+  A function to save the note by dispatching a createNote action to the Redux store and update
+  the state of the component accordingly.
+  */
   const saveNote = () => {
     const { title, description } = note;
 
@@ -29,8 +52,7 @@ const AddNote = () => {
         setNote({
           id: data.id,
           title: data.title,
-          description: data.description,
-          published: data.published
+          description: data.description
         });
         setSubmitted(true);
       })
