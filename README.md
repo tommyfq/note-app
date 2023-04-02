@@ -35,4 +35,4 @@ npm start
 
 ## Notes
 
-This code using extension `Better Comments`(https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments) for better experience reading documentation code
+This code using extension Better Comments (<https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments>) for better experience reading documentation code
