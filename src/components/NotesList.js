@@ -1,3 +1,13 @@
+/**
+ * Renders a list of notes that can be searched and filtered by title.
+ * Allows users to view, edit and delete notes.
+  @component
+  @example
+  return (
+    <NotesList />
+  )
+*/
+
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -18,11 +28,18 @@ const NotesList = () => {
   const notes = useSelector(state => state.notes);
   const dispatch = useDispatch();
 
+  /**
+    Handles updating the search title based on user input.
+    @param {object} e - The event object.
+  */
   const onChangeSearchTitle = e => {
     const searchTitle = e.target.value;
     setSearchTitle(searchTitle);
   };
 
+  /**
+    Handles fetching notes from the server.
+  */
   const initFetch = useCallback(() => {
     dispatch(retrieveNotes());
   }, [dispatch])
@@ -31,16 +48,17 @@ const NotesList = () => {
     initFetch()
   }, [initFetch])
 
+  /**
+    Resets the current note and index.
+  */
   const refreshData = () => {
     setCurrentNote(null);
     setCurrentIndex(-1);
   };
 
-  const setActiveNote = (note, index) => {
-    setCurrentNote(note);
-    setCurrentIndex(index);
-  };
-
+  /**
+    Handles deleting all notes.
+  */
   const removeAllNotes = () => {
     dispatch(deleteAllNotes())
       .then(response => {
@@ -51,11 +69,18 @@ const NotesList = () => {
       });
   };
 
+  /**
+    Handles filtering notes by title.
+  */
   const findByTitle = () => {
     refreshData();
     dispatch(findNotesByTitle({ title: searchTitle }));
   };
 
+  /**
+    Handles deleting a specific note.
+    @param {object} note - The note to be deleted.
+  */
   const removeNote = (note) => {
     dispatch(deleteNote({ id: note.id }))
       .unwrap()
@@ -92,7 +117,7 @@ const NotesList = () => {
         <div id="note-full-container" className="note-has-grid row">
         {notes &&
           notes.map((note, index) => (
-            <div className="col-md-4 single-note-item all-category" onClick={() => setActiveNote(note, index)}
+            <div className="col-md-4 single-note-item all-category"
             key={index}>
               <div className="card card-body">
                   <span className="side-stick"></span>

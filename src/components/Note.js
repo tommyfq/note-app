@@ -1,3 +1,12 @@
+/**
+ * A component for viewing and editing a single note.
+ * It retrieves the note data from the server using a NoteDataService,
+ * and allows the user to update or delete the note.
+  @component
+  @param {Object} props - The properties passed to the component.
+  @param {string} props.id - The ID of the note to display.
+*/
+
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom';
@@ -5,9 +14,11 @@ import { updateNote, deleteNote } from "../slices/notes";
 import NoteDataService from "../services/NoteService";
 
 const Note = (props) => {
+  // Retrieve the ID of the note to display from the URL
   const { id }= useParams();
   let navigate = useNavigate();
 
+  // Define the initial state of the currentNote object
   const initialNoteState = {
     id: null,
     title: "",
@@ -16,8 +27,10 @@ const Note = (props) => {
   const [currentNote, setCurrentNote] = useState(initialNoteState);
   const [message, setMessage] = useState("");
 
+  // Retrieve the Redux dispatch function
   const dispatch = useDispatch();
 
+  // Get the note data from the server and store it in the currentNote state
   const getNote = id => {
     NoteDataService.get(id)
       .then(response => {
@@ -28,16 +41,19 @@ const Note = (props) => {
       });
   };
 
+  // If an ID is provided in the URL, get the note data from the server
   useEffect(() => {
     if (id)
       getNote(id);
   }, [id]);
 
+  // Handle changes to the input fields by updating the currentNote state
   const handleInputChange = event => {
     const { name, value } = event.target;
     setCurrentNote({ ...currentNote, [name]: value });
   };
 
+  // Update the note data on the server
   const updateContent = () => {
     dispatch(updateNote({ id: currentNote.id, data: currentNote }))
       .unwrap()
@@ -50,6 +66,7 @@ const Note = (props) => {
       });
   };
 
+  // Delete the note data from the server
   const removeNote = () => {
     dispatch(deleteNote({ id: currentNote.id }))
       .unwrap()

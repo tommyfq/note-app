@@ -1,3 +1,7 @@
+/**
+ * The main component of the Notes app that renders the UI and sets up the routing.
+  @return {JSX.Element} The main component of the Notes app.
+*/
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,6 +15,7 @@ function App() {
   return (
      <Router>
         <div className="page-content container note-has-grid">
+          {/* Navigation bar */}
           <ul className="nav nav-pills p-3 bg-white mb-3 rounded-pill align-items-center">
               <li className="nav-item">
                 <Link to={"/notes"} className="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2 active">
@@ -23,8 +28,10 @@ function App() {
                 </Link>
               </li>
           </ul>
+          {/* Main content */}
         <div className="tab-content bg-transparent">
         <Routes>
+            {/* Display notes list by default */}
             <Route path="/" element={<NotesList/>} />
             <Route path="/notes" element={<NotesList/>} />
             <Route path="/add" element={<AddNote/>} />
